@@ -1,4 +1,10 @@
 ######## SES ##########
+
+# load packages
+library(statnet)
+library(EpiModel)
+library(ndtv)
+
 # 1) Network with SES
 # initialize empty network with desired attributes
 net <- network.initialize(n = 200, directed = FALSE)
@@ -34,30 +40,30 @@ sim1 <- netsim(mod1, param, init, control)
 
 
 
-# The rest is just plotting
-# Plots of how the epidemic spread
-plot(sim1, mean.line = FALSE, qnts = FALSE, sim.lines = TRUE)
-
-# Plots of how the simulated dynamic networks looked at different timepoints
-par(mfrow = c(1,2), mar = c(0,0,1,0))
-plot(sim1, type = "network", at = 1, col.status = TRUE,
-     main = "Prevalence at t1")
-plot(sim1, type = "network", at = 50, col.status = TRUE,
-     main = "Prevalence at t100")
-
-
-# plot networks at specific points showing race
-nw <- get_network(sim1, sim = 1)
-out <- network.extract(nw, at=20)
-plot(out, vertex.col="SES")
-
-# Make an animated plot of the networks over a specific duration
-slice.par<-list(start=1, end=30, interval=1, aggregate.dur=1,rule="latest")
-compute.animation(nw,slice.par=slice.par)
-
-render.d3movie(nw,
-               filename="SES_network",
-               edge.col="darkgray",displaylabels=TRUE,
-               label.cex=.6,label.col="blue",
-               output.mode = 'htmlWidget',
-               vertex.col="SES")
+# # The rest is just plotting
+# # Plots of how the epidemic spread
+# plot(sim1, mean.line = FALSE, qnts = FALSE, sim.lines = TRUE)
+# 
+# # Plots of how the simulated dynamic networks looked at different timepoints
+# par(mfrow = c(1,2), mar = c(0,0,1,0))
+# plot(sim1, type = "network", at = 1, col.status = TRUE,
+#      main = "Prevalence at t1")
+# plot(sim1, type = "network", at = 50, col.status = TRUE,
+#      main = "Prevalence at t100")
+# 
+# 
+# # plot networks at specific points showing race
+# nw <- get_network(sim1, sim = 1)
+# out <- network.extract(nw, at=20)
+# plot(out, vertex.col="SES")
+# 
+# # Make an animated plot of the networks over a specific duration
+# slice.par<-list(start=1, end=30, interval=1, aggregate.dur=1,rule="latest")
+# compute.animation(nw,slice.par=slice.par)
+# 
+# render.d3movie(nw,
+#                filename="SES_network.html",
+#                edge.col="darkgray",displaylabels=TRUE,
+#                label.cex=.6,label.col="blue",
+#                output.mode = 'HTML',
+#                vertex.col="SES")
